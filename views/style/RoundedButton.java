@@ -1,4 +1,4 @@
-package style;
+package views.style;
 
 import javax.swing.*;
 import java.awt.*;

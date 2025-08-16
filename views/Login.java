@@ -84,11 +84,11 @@ public class Login extends JFrame implements ActionListener {
 
         // Stylish gradient buttons
         signIn = createStyledButton("Sign In", new Color(0x4CAF50), new Color(0x2E7D32));
-        signIn.setBounds(365, startY, 100, 35);
+        signIn.setBounds(375, startY, 100, 35);
         signIn.addActionListener(this);
 
         clear = createStyledButton("Clear", new Color(0xF44336), new Color(0xB71C1C));
-        clear.setBounds(520, startY, 100, 35);
+        clear.setBounds(515, startY, 100, 35);
         clear.addActionListener(this);
 
         signUp = createStyledButton("Sign Up", new Color(0x2196F3), new Color(0x0D47A1));
