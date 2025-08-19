@@ -1,9 +1,7 @@
 package utilities;
 import javax.swing.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -139,4 +137,9 @@ public class Utils {
         });
     }
 
+    public static String formatToDDMMYYYY(Date date) {
+        if (date == null) return null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(date);
+    }
 }
