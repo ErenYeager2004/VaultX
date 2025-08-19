@@ -163,4 +163,20 @@ public class Utils {
         return new JLabel("<html>" + text + " <font color='red'>*</font></html>");
     }
 
+    public static String[] religion = {
+            "Hindu",
+            "Muslim",
+            "Sikh",
+            "Cristian",
+            "Other"
+    };
+
+    public static String[] category = {
+            "General",
+            "OBC",
+            "SC",
+            "ST",
+            "Other"
+    };
+
 }
