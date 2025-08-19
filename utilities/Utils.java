@@ -158,4 +158,9 @@ public class Utils {
             throw new RequiredFieldException(fieldName);
         }
     }
+
+    public static JLabel createRequiredLabel(String text) {
+        return new JLabel("<html>" + text + " <font color='red'>*</font></html>");
+    }
+
 }
