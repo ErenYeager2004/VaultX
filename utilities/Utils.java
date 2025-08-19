@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import exceptions.*;
 public class Utils {
     public static String getRandomNumber(){
        Random random = new Random();
@@ -141,5 +141,21 @@ public class Utils {
         if (date == null) return null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return sdf.format(date);
+    }
+
+    public static void validateEmail(String email) throws InvalidEmailException {
+        if (email == null || !isValidEmail(email)) {
+            throw new InvalidEmailException(email);
+        }
+    }
+    public static void validatePhone(String phone) throws InvalidPhoneException {
+        if (phone == null || !isValidPhoneNumber(phone)) {
+            throw new InvalidPhoneException(phone);
+        }
+    }
+    public static void validateRequired(String value, String fieldName) throws RequiredFieldException {
+        if (value == null || value.trim().isEmpty()) {
+            throw new RequiredFieldException(fieldName);
+        }
     }
 }
