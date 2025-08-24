@@ -23,7 +23,7 @@ public class DBConnection {
 
             String url = props.getProperty("db.url");
             String user = props.getProperty("db.user");
-            String pass = props.getProperty("db.pass");
+            String pass = props.getProperty("db.password");
 
             connection = DriverManager.getConnection(url, user, pass);
             statement = connection.createStatement();
