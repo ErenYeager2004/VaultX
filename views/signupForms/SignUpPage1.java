@@ -12,6 +12,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class SignUpPage1 extends JPanel {
+    private final String formNo;
     private final JTextField firstName, middleName, lastName;
     private final JTextField fFirstName, fMiddleName, fLastName;
     private final JTextField emailAddress, phoneNo;
@@ -47,7 +48,8 @@ public class SignUpPage1 extends JPanel {
         bankLabel.setBounds(25, 10, 100, 100);
         add(bankLabel);
 
-        JLabel formNumber = new JLabel("Application Form no :" + Utils.getRandomNumber());
+        formNo = Utils.getRandomNumber();
+        JLabel formNumber = new JLabel("Application Form no :" + formNo);
         formNumber.setBounds(170, 20, 600, 40);
         formNumber.setFont(new Font("Raleway", Font.BOLD, 32));
         add(formNumber);
@@ -63,11 +65,6 @@ public class SignUpPage1 extends JPanel {
         add(personalDetail);
 
         // --- Form Fields ---
-        JLabel name = Utils.createRequiredLabel("Name :");
-        name.setFont(new Font("Raleway", Font.BOLD, 20));
-        name.setBounds(jLabelX, jLabelY, jLabelWidth, jLabelHeight);
-        add(name);
-
         firstName = new JTextField();
         firstName.setFont(new Font("Raleway", Font.BOLD, 14));
         firstName.setBounds(jTextFeildX, jTextFeildY, nameFieldWidth, nameFieldHeight);
@@ -251,75 +248,60 @@ public class SignUpPage1 extends JPanel {
     }
 
     // Getters to access entered form data
+    public String getFormNo() { return formNo;}
     public String getFirstName() {
         return firstName.getText().trim();
     }
-
     public String getMiddleName() {
         return middleName.getText().trim();
     }
-
     public String getLastName() {
         return lastName.getText().trim();
     }
-
     public String getFatherFirstName() {
         return fFirstName.getText().trim();
     }
-
     public String getFatherMiddleName() {
         return fMiddleName.getText().trim();
     }
-
     public String getFatherLastName() {
         return fLastName.getText().trim();
     }
-
     public String getDateOfBirth() {
         java.util.Date date = dateChooser.getDate();
         return Utils.formatToDDMMYYYY(date);
     }
-
     public String getGender() {
         if (male.isSelected()) return "Male";
         else if (female.isSelected()) return "Female";
         else return null;
     }
-
     public String getMaritalStatus() {
         if (single.isSelected()) return "Single";
         else if (married.isSelected()) return "Married";
         else return null;
     }
-
     public String getNationality() {
         return Objects.requireNonNull(nationalityBox.getSelectedItem()).toString();
     }
-
     public String getEmailAddress() {
         return emailAddress.getText().trim();
     }
-
     public String getPhoneNo() {
         return phoneNo.getText().trim();
     }
-
     public String getAddress() {
         return permanentAddress.getText().trim();
     }
-
     public String getState() {
         return Objects.requireNonNull(stateComboBox.getSelectedItem()).toString();
     }
-
     public String getCity() {
         return Objects.requireNonNull(cityComboBox.getSelectedItem()).toString();
     }
-
     public String getPinCode() {
         return pinCode.getText().trim();
     }
-
     public User toUser() throws RequiredFieldException, InvalidEmailException, InvalidPhoneException {
         Utils.validateRequired(getFirstName(), "First Name");
         Utils.validateRequired(getDateOfBirth(), "Date of Birth");
@@ -337,6 +319,7 @@ public class SignUpPage1 extends JPanel {
         Utils.validatePhone(getPhoneNo());
         
         User user = new User();
+        user.setFormNo(getFormNo());
         user.setFirstName(getFirstName());
         user.setMiddleName(getMiddleName());
         user.setLastName(getLastName());
