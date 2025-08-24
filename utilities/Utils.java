@@ -179,4 +179,47 @@ public class Utils {
             "Other"
     };
 
+    public static String[] incomes = {
+            "Null",
+            "< 1.5 lakh",
+            "< 3 lakh",
+            "5 lakh",
+            "Upto 10 lakh",
+            "Above 10 lakh"
+    };
+
+    public static String[] occupations = {
+            "Salaried (Private Sector)",
+            "Salaried (Government)",
+            "Self-Employed / Business",
+            "Student",
+            "Retired",
+            "Unemployed",
+            "Farmer / Agriculture",
+            "Professional (Doctor, Lawyer, Engineer, etc.)"
+    };
+
+    public static void bindRadioWithTextField(JRadioButton yesButton, JRadioButton noButton, JTextField textField) {
+        textField.setEnabled(false); // default disabled
+
+        yesButton.addActionListener(e -> {
+            textField.setEnabled(true);
+            textField.setText("");
+        });
+
+        noButton.addActionListener(e -> {
+            textField.setEnabled(false);
+            textField.setText(""); // cleared for DB (treated as NULL)
+        });
+    }
+
+    public static String[] residentStatus = {
+            "Owned",
+            "Rented",
+            "Paying Guest",
+            "Company Provided",
+            "Hostel/Other"
+    };
+
+
 }
