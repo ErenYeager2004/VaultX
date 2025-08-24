@@ -9,8 +9,8 @@ import java.util.Properties;
 import java.io.InputStream;
 
 public class DBConnection {
-    private Connection connection;
-    private Statement statement;
+    private final Connection connection;
+    private final Statement statement;
 
     public DBConnection() {
         try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("db.properties")) {
