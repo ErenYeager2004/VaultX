@@ -3,6 +3,7 @@ package views.signupForms;
 import models.User;
 import utilities.Utils;
 import views.SignUp;
+import views.style.RoundedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,8 +26,10 @@ public class SignUpPage3 extends JPanel {
     private final JTextField nomineeFirstNameField, nomineeMiddleNameField, nomineeLastNameField, nomineePhoneField, nomineeAddressArea;
     private final JComboBox<String> nomineeRelationField, nomineeOccupationField;
     private final JPanel nomineePanel;
-
     private final JTextField initialDeposit;
+    private final JComboBox<String>branches;
+    private final JTextField userID;
+    private final JTextField userPassword,userConfirmPasssword;
     public SignUpPage3(SignUp frame2, User user) {
         setLayout(null);
         setBackground(new Color(215, 252, 252));
@@ -198,12 +201,76 @@ public class SignUpPage3 extends JPanel {
         initialDeposit.setBounds(jTextFeildX,jTextFeildY+150,nameFieldWidth,nameFieldHeight);
         add(initialDeposit);
 
+        JLabel branchName = Utils.createRequiredLabel("Select Branch :");
+        branchName.setFont(new Font("Raleway", Font.BOLD, 20));
+        branchName.setBounds(jLabelX, jLabelY + 200, jLabelWidth + 150, jLabelHeight);
+        add(branchName);
+
+        branches = new JComboBox<>(Utils.branchToCode.keySet().toArray(new String[0]));
+        branches.setFont(new Font("Raleway", Font.BOLD, 14));
+        branches.setBounds(jTextFeildX, jTextFeildY + 200, nameFieldWidth+150, nameFieldHeight);
+        add(branches);
+
+        JLabel userId = Utils.createRequiredLabel("UserID:");
+        userId.setFont(new Font("Raleway", Font.BOLD, 20));
+        userId.setBounds(jLabelX, jLabelY + 250, jLabelWidth + 150, jLabelHeight);
+        add(userId);
+
+        userID = new JTextField();
+        userID.setFont(new Font("Raleway",Font.BOLD,16));
+        userID.setEditable(false);
+        userID.setBounds(jTextFeildX,jTextFeildY+250,nameFieldWidth,nameFieldHeight);
+        add(userID);
+
+        RoundedButton generateButton = new RoundedButton(
+                "Generate",
+                new Color(0, 123, 255), // normal color (blue)
+                new Color(0, 90, 200)   // hover color (darker blue)
+        );
+        generateButton.setBounds(jTextFeildX + nameFieldWidth + 10, jTextFeildY + 250, 120, nameFieldHeight);
+        add(generateButton);
+
+        generateButton.addActionListener(e -> {
+            String generatedId = Utils.generateCustomerId();
+            userID.setText(generatedId);
+            generateButton.setEnabled(false);
+        });
+
+        JLabel userPass = Utils.createRequiredLabel("Password :");
+        userPass.setFont(new Font("Raleway", Font.BOLD, 20));
+        userPass.setBounds(jLabelX, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
+        add(userPass);
+
+        userPassword = new JTextField();
+        userPassword.setFont(new Font("Raleway",Font.BOLD,16));
+        userPassword.setBounds(jTextFeildX,jTextFeildY+300,nameFieldWidth,nameFieldHeight);
+        add(userPassword);
+
+        JLabel userConfirmPass = Utils.createRequiredLabel("Confirm Password :");
+        userConfirmPass.setFont(new Font("Raleway", Font.BOLD, 20));
+        userConfirmPass.setBounds(jLabelX+315, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
+        add(userConfirmPass);
+
+        userConfirmPasssword = new JTextField();
+        userConfirmPasssword.setFont(new Font("Raleway",Font.BOLD,16));
+        userConfirmPasssword.setBounds(jTextFeildX+350,jTextFeildY+300,nameFieldWidth,nameFieldHeight);
+        add(userConfirmPasssword);
+
         // ==== Radio Button Logic ====
         nomineeYes.addActionListener(e -> {
             nomineePanel.setVisible(true);
             int newY = nomineePanel.getY() + nomineePanel.getHeight() + 20; // Just below panel
             initialDepositAmount.setBounds(jLabelX, newY, jLabelWidth + 150, jLabelHeight);
             initialDeposit.setBounds(jTextFeildX, newY + 5, nameFieldWidth + 30, nameFieldHeight);
+            branchName.setBounds(jLabelX, newY+50, jLabelWidth + 150, jLabelHeight);
+            branches.setBounds(jTextFeildX, newY + 60, nameFieldWidth + 150, nameFieldHeight);
+            userId.setBounds(jLabelX, newY+105, jLabelWidth + 150, jLabelHeight);
+            userID.setBounds(jTextFeildX, newY + 115, nameFieldWidth , nameFieldHeight);
+            generateButton.setBounds(jTextFeildX+150, newY + 115, nameFieldWidth , nameFieldHeight);
+            userPass.setBounds(jLabelX, newY+155, jLabelWidth + 150, jLabelHeight);
+            userConfirmPass.setBounds(jLabelX+315, newY+155, jLabelWidth + 150, jLabelHeight);
+            userPassword.setBounds(jTextFeildX, newY + 165, nameFieldWidth , nameFieldHeight);
+            userConfirmPasssword.setBounds(jTextFeildX+350, newY + 165, nameFieldWidth , nameFieldHeight);
             revalidate();
             repaint();
         });
@@ -212,9 +279,17 @@ public class SignUpPage3 extends JPanel {
             nomineePanel.setVisible(false);
             initialDepositAmount.setBounds(jLabelX, jLabelY + 150, jLabelWidth + 150, jLabelHeight);
             initialDeposit.setBounds(jTextFeildX, jTextFeildY + 150, nameFieldWidth, nameFieldHeight);
+            branchName.setBounds(jLabelX, jLabelY + 200, jLabelWidth + 150, jLabelHeight);
+            branches.setBounds(jTextFeildX, jTextFeildY + 200, nameFieldWidth+150, nameFieldHeight);
+            userId.setBounds(jLabelX, jLabelY + 250, jLabelWidth + 150, jLabelHeight);
+            userID.setBounds(jTextFeildX,jTextFeildY+250,nameFieldWidth,nameFieldHeight);
+            generateButton.setBounds(jTextFeildX + nameFieldWidth + 10, jTextFeildY + 250, 120, nameFieldHeight);
+            userPass.setBounds(jLabelX, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
+            userConfirmPass.setBounds(jLabelX+315, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
             revalidate();
             repaint();
         });
 
     }
+
 }
