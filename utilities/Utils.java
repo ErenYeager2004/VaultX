@@ -1,13 +1,16 @@
 package utilities;
 import javax.swing.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import exceptions.*;
 public class Utils {
+    public static String bankName = "VaultX";
+    private static final Random random = new Random();
     public static String getRandomNumber(){
-       Random random = new Random();
        long first4 = (random.nextLong() % 9000L) + 1000L;
        return " "+Math.abs(first4);
     }
@@ -194,11 +197,19 @@ public class Utils {
             "Self-Employed / Business",
             "Student",
             "Retired",
+            "House Wife",
             "Unemployed",
             "Farmer / Agriculture",
             "Professional (Doctor, Lawyer, Engineer, etc.)"
     };
 
+    public static String[] relationship = {
+            "Father",
+            "Mother",
+            "Brother",
+            "Sister",
+            "Others"
+    };
     public static void bindRadioWithTextField(JRadioButton yesButton, JRadioButton noButton, JTextField textField) {
         textField.setEnabled(false); // default disabled
 
@@ -212,7 +223,6 @@ public class Utils {
             textField.setText(""); // cleared for DB (treated as NULL)
         });
     }
-
     public static String[] residentStatus = {
             "Owned",
             "Rented",
@@ -220,6 +230,48 @@ public class Utils {
             "Company Provided",
             "Hostel/Other"
     };
+    public static void setFieldVisibility(JRadioButton Yes,JRadioButton No,JPanel panel){
+        Yes.addActionListener(e->panel.setVisible(true));
+        No.addActionListener(e->panel.setVisible(false));
+    }
+    public static String generateATMNumber(){
+        String bin = "411111";
+        StringBuilder cardNo = new StringBuilder(bin);
+        for(int i=0;i<9;i++){
+            cardNo.append(random.nextInt(10));
+        }
+        int checkDigit = getCheckDigit(cardNo.toString());
+        cardNo.append(checkDigit);
 
+        return formatCardNumber(cardNo.toString());
+    }
+    private static int getCheckDigit(String number){
+        int sum = 0;
+        boolean alternate = true;
+        for(int i = number.length()-1;i >=0; i--){
+            int n = Integer.parseInt(number.substring(i,i+1));
+            if(alternate){
+                n*=2;
+                if(n > 9){
+                    n = (n%10)+1;
+                }
+            }
+            sum += n;
+            alternate = !alternate;
+        }
+        return (10 - (sum % 10)) % 10;
+    }
+    public static String generateCVV(){
+        int cvv = 100 + random.nextInt(900);
+        return Integer.toString(cvv);
+    }
+    public static String generateATMExpiryDate(){
+        LocalDate expiry = LocalDate.now().plusYears(5);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        return expiry.format(formatter);
+    }
+    private static String formatCardNumber(String number) {
+        return number.replaceAll("(.{4})(?!$)", "$1 ");
+    }
 
 }
