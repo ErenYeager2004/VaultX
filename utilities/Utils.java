@@ -4,9 +4,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import exceptions.*;
+import models.User;
+
 public class Utils {
     public static String bankName = "VaultX";
     private static final Random random = new Random();
@@ -230,6 +234,7 @@ public class Utils {
             "Company Provided",
             "Hostel/Other"
     };
+
     public static void setFieldVisibility(JRadioButton Yes,JRadioButton No,JPanel panel){
         Yes.addActionListener(e->panel.setVisible(true));
         No.addActionListener(e->panel.setVisible(false));
@@ -272,6 +277,79 @@ public class Utils {
     }
     private static String formatCardNumber(String number) {
         return number.replaceAll("(.{4})(?!$)", "$1 ");
+    }
+
+    public static void initialDepositChecker(long amount) throws InitialDepositException{
+        if(amount < 2000){
+            throw new InitialDepositException("Deposit amount should be at least 2000");
+        }
+        if(amount > 100000){
+            throw new InitialDepositException("Deposit amount should not exceed 1 lakh");
+        }
+    }
+
+    public static final Map<String, String> branchToCode = new HashMap<>();
+
+    static {
+        branchToCode.put("VaultX Bally Main", "4001");
+        branchToCode.put("VaultX Bally Bazaar", "4002");
+        branchToCode.put("VaultX Belur Math Branch", "4003");
+        branchToCode.put("VaultX Howrah Station Branch", "4004");
+        branchToCode.put("VaultX Howrah Shibpur", "4005");
+        branchToCode.put("VaultX Liluah Branch", "4006");
+        branchToCode.put("VaultX Dum Dum Airport Branch", "4007");
+        branchToCode.put("VaultX Salt Lake Sector V", "4008");
+        branchToCode.put("VaultX Park Street Main", "4009");
+        branchToCode.put("VaultX Esplanade Metro Branch", "4010");
+        branchToCode.put("VaultX Shibpur Science College", "4011");
+        branchToCode.put("VaultX Santragachi Railway Branch", "4012");
+    }
+
+    public static String generateCustomerId() {
+        int randomNum = ThreadLocalRandom.current().nextInt(100000, 999999);
+        return "CIF" + randomNum;
+    }
+
+    public static String generateAccountNumber(String branchCode) {
+        long randomNum = ThreadLocalRandom.current().nextLong(10000000L, 99999999L);
+        return branchCode + randomNum;
+    }
+
+    public static String generateIFSC(String branchCode) {
+        int code = Integer.parseInt(branchCode);
+        return "VLTX0" + String.format("%06d", code);
+    }
+
+    public static void passwordChecker(String password) throws InvalidPasswordException {
+        if (password == null || password.isEmpty()) {
+            throw new InvalidPasswordException("Password cannot be empty");
+        }
+
+        if (password.length() < 8) {
+            throw new InvalidPasswordException("Password must be at least 8 characters long");
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
+            throw new InvalidPasswordException("Password must contain at least one uppercase letter");
+        }
+
+        if (!password.matches(".*[a-z].*")) {
+            throw new InvalidPasswordException("Password must contain at least one lowercase letter");
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            throw new InvalidPasswordException("Password must contain at least one digit");
+        }
+
+        if (!password.matches(".*[!@#$%^&*()_+\\-=[\\]{}|;:',.<>/?].*")) {
+            throw new InvalidPasswordException("Password must contain at least one special character");
+        }
+    }
+
+    public static void isPasswordMatch(String password,String confirmPassword) throws PasswordNotMatchException{
+        if(!password.equals(confirmPassword)){
+            throw new PasswordNotMatchException("Password and Confirm password didn't match");
+        }
     }
 
 }
