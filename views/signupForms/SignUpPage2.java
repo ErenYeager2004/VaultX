@@ -292,6 +292,7 @@ public class SignUpPage2 extends JPanel {
         User user = new User();
         user.setReligion(getReligion());
         user.setCategory(getCategory());
+        user.setOccupation(getOccupation());
         user.setIncome(getIncome());
         user.setHavePanCard(isPanCard());
         user.setPanCardNo(getPanCardNo());
