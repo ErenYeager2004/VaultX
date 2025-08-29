@@ -286,6 +286,8 @@ public class SignUpPage3 extends JPanel {
             generateButton.setBounds(jTextFeildX + nameFieldWidth + 10, jTextFeildY + 250, 120, nameFieldHeight);
             userPass.setBounds(jLabelX, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
             userConfirmPass.setBounds(jLabelX+315, jLabelY + 300, jLabelWidth + 150, jLabelHeight);
+            userPassword.setBounds(jTextFeildX,jTextFeildY+300,nameFieldWidth,nameFieldHeight);
+            userConfirmPasssword.setBounds(jTextFeildX+350,jTextFeildY+300,nameFieldWidth,nameFieldHeight);
             revalidate();
             repaint();
         });
