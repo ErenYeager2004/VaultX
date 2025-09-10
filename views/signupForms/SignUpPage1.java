@@ -65,6 +65,11 @@ public class SignUpPage1 extends JPanel {
         add(personalDetail);
 
         // --- Form Fields ---
+        JLabel fullName = new JLabel("Full Name:");
+        fullName.setFont(new Font("Raleway", Font.BOLD, 20));
+        fullName.setBounds(jLabelX, jLabelY , 150, 30);
+        add(fullName);
+
         firstName = new JTextField();
         firstName.setFont(new Font("Raleway", Font.BOLD, 14));
         firstName.setBounds(jTextFeildX, jTextFeildY, nameFieldWidth, nameFieldHeight);
